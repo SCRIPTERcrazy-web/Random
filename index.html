@@ -1,0 +1,1071 @@
+```html
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Re-one Team — Official Developer Hub</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        discord: {
+                            DEFAULT: '#5865F2',
+                            hover: '#4752C4',
+                            dark: '#1e2124',
+                            card: '#2b2d31',
+                            embedBg: '#1e1f22'
+                        },
+                        darkbg: {
+                            950: '#060709',
+                            900: '#0b0d12',
+                            800: '#12151d',
+                            700: '#1a1e2a',
+                            600: '#262c3d',
+                            border: 'rgba(255, 255, 255, 0.08)'
+                        },
+                        brand: {
+                            green: '#57f287',
+                            yellow: '#fee75c',
+                            fuchsia: '#eb459e',
+                            cyan: '#00f2fe',
+                            red: '#ed4245'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'Consolas', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Fonts & Font Awesome Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+    <style>
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #060709;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1f2533;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #5865f2;
+        }
+
+        /* Ambient Glow & Grid Background */
+        .bg-grid {
+            background-size: 32px 32px;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+        }
+
+        .glass-card {
+            background: rgba(18, 21, 29, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .glass-card-interactive {
+            background: rgba(18, 21, 29, 0.75);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .glass-card-interactive:hover {
+            border-color: rgba(88, 101, 242, 0.4);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px -15px rgba(88, 101, 242, 0.15);
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.2; transform: scale(1); }
+            50% { opacity: 0.45; transform: scale(1.1); }
+        }
+        .glow-bg {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(130px);
+            z-index: 0;
+            pointer-events: none;
+            animation: pulseGlow 8s infinite ease-in-out;
+        }
+
+        .neon-border {
+            position: relative;
+        }
+        .neon-border::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: inherit;
+            padding: 1px;
+            background: linear-gradient(135deg, rgba(88, 101, 242, 0.6), transparent, rgba(0, 242, 254, 0.4));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+
+        .toast-animate {
+            animation: slideUp 0.3s ease-out forwards;
+        }
+        @keyframes slideUp {
+            from { transform: translateY(100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+    </style>
+</head>
+<body class="bg-darkbg-950 text-gray-100 font-sans antialiased min-h-screen relative flex flex-col justify-between selection:bg-discord selection:text-white bg-grid overflow-x-hidden">
+
+    <!-- Ambient Glowing Orbs -->
+    <div class="glow-bg w-[600px] h-[600px] bg-discord/25 -top-32 -left-32"></div>
+    <div class="glow-bg w-[500px] h-[500px] bg-cyan-500/15 top-1/3 -right-32" style="animation-delay: 2.5s;"></div>
+    <div class="glow-bg w-[550px] h-[550px] bg-brand-green/10 bottom-10 left-1/4" style="animation-delay: 5s;"></div>
+
+    <!-- MAIN CONTAINER -->
+    <div class="relative z-10 max-w-5xl mx-auto px-4 py-8 sm:py-12 w-full flex-grow flex flex-col justify-center gap-12">
+
+        <!-- HEADER / NAVIGATION BAR -->
+        <header class="glass-card neon-border rounded-3xl p-6 sm:p-8 shadow-2xl relative overflow-hidden">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5">
+                
+                <!-- Logo & Brand -->
+                <a href="#" class="flex items-center gap-4 group">
+                    <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-discord to-indigo-700 text-white flex items-center justify-center text-2xl font-black shadow-lg shadow-discord/30 group-hover:scale-105 transition-all">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
+                                Re-one<span class="text-discord">Team</span>
+                            </h1>
+                            <span class="text-[10px] font-mono px-2 py-0.5 rounded-md bg-discord/20 text-discord border border-discord/30 font-bold uppercase tracking-wider">
+                                Official
+                            </span>
+                        </div>
+                        <p class="text-xs text-gray-400 font-mono mt-0.5">Bot Ecosystem · Scripting Suite · Security Tools</p>
+                    </div>
+                </a>
+
+                <!-- System Status Pill -->
+                <div class="inline-flex items-center gap-2.5 bg-darkbg-900/90 px-4 py-2 rounded-full border border-darkbg-border text-xs font-semibold text-gray-300">
+                    <span class="relative flex h-2.5 w-2.5">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-green opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-brand-green"></span>
+                    </span>
+                    <span class="text-gray-200">All Systems Operational</span>
+                </div>
+            </div>
+
+            <!-- Hero Intro Paragraph -->
+            <p class="text-sm sm:text-base text-gray-300 mt-6 leading-relaxed max-w-3xl">
+                We are an elite developer collective crafting sophisticated Discord automation bots, Lua script engines, security filters, and community tools within the <strong>Re-one Ecosystem</strong>.
+            </p>
+
+            <!-- Quick Metrics / Stats Bar -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-6 pt-6 border-t border-darkbg-border">
+                <div class="p-3 rounded-2xl bg-darkbg-900/50 border border-darkbg-border text-center sm:text-left">
+                    <div class="text-xs text-gray-400 font-mono">Core Developers</div>
+                    <div class="text-lg font-bold text-white mt-0.5">3 Engineers</div>
+                </div>
+                <div class="p-3 rounded-2xl bg-darkbg-900/50 border border-darkbg-border text-center sm:text-left">
+                    <div class="text-xs text-gray-400 font-mono">Active Projects</div>
+                    <div class="text-lg font-bold text-discord mt-0.5">6 Modules</div>
+                </div>
+                <div class="p-3 rounded-2xl bg-darkbg-900/50 border border-darkbg-border text-center sm:text-left">
+                    <div class="text-xs text-gray-400 font-mono">System Status</div>
+                    <div class="text-lg font-bold text-brand-green mt-0.5">99.9% Online</div>
+                </div>
+                <div class="p-3 rounded-2xl bg-darkbg-900/50 border border-darkbg-border text-center sm:text-left">
+                    <div class="text-xs text-gray-400 font-mono">Discord Community</div>
+                    <div class="text-lg font-bold text-cyan-400 mt-0.5">ThisIsBacon</div>
+                </div>
+            </div>
+
+            <!-- Call-To-Action Buttons -->
+            <div class="flex flex-wrap items-center gap-3 mt-6">
+                <a href="https://discord.gg/ET2gVgNdS" target="_blank" class="px-6 py-3.5 rounded-2xl bg-discord hover:bg-discord-hover text-white text-xs sm:text-sm font-bold shadow-xl shadow-discord/30 transition-all hover:scale-[1.02] active:scale-[0.98] flex items-center gap-2.5">
+                    <i class="fab fa-discord text-lg"></i>
+                    <span>Join Discord Community</span>
+                    <span class="text-[10px] bg-white/20 px-2 py-0.5 rounded-md font-mono">ThisIsBacon</span>
+                </a>
+
+                <a href="#apply-section" class="px-6 py-3.5 rounded-2xl bg-darkbg-800 hover:bg-darkbg-700 text-gray-200 hover:text-white text-xs sm:text-sm font-bold border border-darkbg-border transition-all hover:border-discord flex items-center gap-2">
+                    <i class="fas fa-user-plus text-brand-green"></i>
+                    <span>Apply for Moderator / Staff</span>
+                </a>
+            </div>
+        </header>
+
+        <!-- CORE TEAM SHOWCASE -->
+        <section class="space-y-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-xl bg-discord/20 text-discord flex items-center justify-center text-base font-bold">
+                        <i class="fas fa-users-gear"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-xl sm:text-2xl font-bold text-white tracking-tight">Core Development Team</h2>
+                        <p class="text-xs text-gray-400">Architects driving the Re-one ecosystem forward</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5">
+                
+                <!-- Member 1: ThisIsBacon -->
+                <div class="glass-card-interactive rounded-3xl p-6 border border-darkbg-border flex flex-col justify-between relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-discord/10 rounded-bl-full pointer-events-none"></div>
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="w-14 h-14 rounded-2xl bg-darkbg-900 border border-discord/30 flex items-center justify-center text-discord text-2xl shadow-inner group-hover:scale-110 transition-transform">
+                                <i class="fas fa-user-astronaut"></i>
+                            </div>
+                            <span class="text-[10px] font-mono px-2.5 py-1 rounded-full bg-discord/10 text-discord border border-discord/20 font-bold">
+                                FOUNDER
+                            </span>
+                        </div>
+                        <h3 class="font-extrabold text-white text-lg group-hover:text-discord transition-colors">ThisIsBacon</h3>
+                        <div class="text-xs font-mono text-discord font-medium mb-3">Founder · Core Lead Developer</div>
+                        <p class="text-xs text-gray-300 leading-relaxed mb-6">
+                            Primary architect of the Re-one bot network, obfuscation pipelines, script engines, and executor systems.
+                        </p>
+                    </div>
+
+                    <div class="flex items-center justify-between pt-4 border-t border-darkbg-border/60 text-xs text-gray-400">
+                        <span class="text-[11px] font-mono text-gray-400"><i class="fas fa-code text-discord mr-1"></i> Developer</span>
+                        <div class="flex items-center gap-3">
+                            <a href="https://discord.gg/ET2gVgNdS" target="_blank" class="hover:text-discord transition-colors" title="Discord"><i class="fab fa-discord text-sm"></i></a>
+                            <a href="https://github.com" target="_blank" class="hover:text-white transition-colors" title="GitHub"><i class="fab fa-github text-sm"></i></a>
+                            <a href="https://youtube.com" target="_blank" class="hover:text-red-400 transition-colors" title="YouTube"><i class="fab fa-youtube text-sm"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Member 2: Re-one -->
+                <div class="glass-card-interactive rounded-3xl p-6 border border-darkbg-border flex flex-col justify-between relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-cyan-500/10 rounded-bl-full pointer-events-none"></div>
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="w-14 h-14 rounded-2xl bg-darkbg-900 border border-cyan-500/30 flex items-center justify-center text-cyan-400 text-2xl shadow-inner group-hover:scale-110 transition-transform">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <span class="text-[10px] font-mono px-2.5 py-1 rounded-full bg-cyan-400/10 text-cyan-400 border border-cyan-400/20 font-bold">
+                                BOT LEAD
+                            </span>
+                        </div>
+                        <h3 class="font-extrabold text-white text-lg group-hover:text-cyan-400 transition-colors">Re-one</h3>
+                        <div class="text-xs font-mono text-cyan-400 font-medium mb-3">Lead Bot Engineer</div>
+                        <p class="text-xs text-gray-300 leading-relaxed mb-6">
+                            Manages core bot architecture, automated API gateways, server integrations, and operational uptime.
+                        </p>
+                    </div>
+
+                    <div class="flex items-center justify-between pt-4 border-t border-darkbg-border/60 text-xs text-gray-400">
+                        <span class="text-[11px] font-mono text-gray-400"><i class="fas fa-server text-cyan-400 mr-1"></i> Systems</span>
+                        <div class="flex items-center gap-3">
+                            <a href="https://discord.gg/ET2gVgNdS" target="_blank" class="hover:text-discord transition-colors" title="Discord"><i class="fab fa-discord text-sm"></i></a>
+                            <a href="https://github.com" target="_blank" class="hover:text-white transition-colors" title="GitHub"><i class="fab fa-github text-sm"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Member 3: FilterX -->
+                <div class="glass-card-interactive rounded-3xl p-6 border border-darkbg-border flex flex-col justify-between relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-brand-green/10 rounded-bl-full pointer-events-none"></div>
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="w-14 h-14 rounded-2xl bg-darkbg-900 border border-brand-green/30 flex items-center justify-center text-brand-green text-2xl shadow-inner group-hover:scale-110 transition-transform">
+                                <i class="fas fa-shield-halved"></i>
+                            </div>
+                            <span class="text-[10px] font-mono px-2.5 py-1 rounded-full bg-brand-green/10 text-brand-green border border-brand-green/20 font-bold">
+                                SECURITY
+                            </span>
+                        </div>
+                        <h3 class="font-extrabold text-white text-lg group-hover:text-brand-green transition-colors">FilterX</h3>
+                        <div class="text-xs font-mono text-brand-green font-medium mb-3">Security & Moderation Lead</div>
+                        <p class="text-xs text-gray-300 leading-relaxed mb-6">
+                            Oversees chat moderation filters, automated anti-spam protections, and server safety protocols.
+                        </p>
+                    </div>
+
+                    <div class="flex items-center justify-between pt-4 border-t border-darkbg-border/60 text-xs text-gray-400">
+                        <span class="text-[11px] font-mono text-gray-400"><i class="fas fa-lock text-brand-green mr-1"></i> Security</span>
+                        <div class="flex items-center gap-3">
+                            <a href="https://discord.gg/ET2gVgNdS" target="_blank" class="hover:text-discord transition-colors" title="Discord"><i class="fab fa-discord text-sm"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ACTIVE PROJECTS SECTION -->
+        <section class="space-y-4">
+            <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-xl bg-discord/20 text-discord flex items-center justify-center text-base font-bold">
+                    <i class="fas fa-cubes"></i>
+                </div>
+                <div>
+                    <h2 class="text-xl sm:text-2xl font-bold text-white tracking-tight">Active Ecosystem Projects</h2>
+                    <p class="text-xs text-gray-400">Tools and utilities built by Re-one developers</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
+                
+                <div class="glass-card-interactive p-4 rounded-2xl border border-darkbg-border flex items-center gap-3.5">
+                    <div class="w-10 h-10 rounded-xl bg-discord/15 text-discord flex items-center justify-center text-lg flex-shrink-0">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-sm font-bold text-white">Lua Obfuscator Engine</h4>
+                        <p class="text-[11px] text-gray-400">Advanced code encryption & protection</p>
+                    </div>
+                </div>
+
+                <div class="glass-card-interactive p-4 rounded-2xl border border-darkbg-border flex items-center gap-3.5">
+                    <div class="w-10 h-10 rounded-xl bg-brand-yellow/15 text-brand-yellow flex items-center justify-center text-lg flex-shrink-0">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-sm font-bold text-white">ScriptHub Portal</h4>
+                        <p class="text-[11px] text-gray-400">Curated Lua repository & executor scripts</p>
+                    </div>
+                </div>
+
+                <div class="glass-card-interactive p-4 rounded-2xl border border-darkbg-border flex items-center gap-3.5">
+                    <div class="w-10 h-10 rounded-xl bg-red-500/15 text-red-400 flex items-center justify-center text-lg flex-shrink-0">
+                        <i class="fab fa-youtube"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-sm font-bold text-white">YouTube Notifier</h4>
+                        <p class="text-[11px] text-gray-400">Instant upload alerts for Discord servers</p>
+                    </div>
+                </div>
+
+                <div class="glass-card-interactive p-4 rounded-2xl border border-darkbg-border flex items-center gap-3.5">
+                    <div class="w-10 h-10 rounded-xl bg-cyan-400/15 text-cyan-400 flex items-center justify-center text-lg flex-shrink-0">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-sm font-bold text-white">Executor (PC & Mobile)</h4>
+                        <p class="text-[11px] text-gray-400">Cross-platform Lua execution suite</p>
+                    </div>
+                </div>
+
+                <div class="glass-card-interactive p-4 rounded-2xl border border-darkbg-border flex items-center gap-3.5">
+                    <div class="w-10 h-10 rounded-xl bg-brand-green/15 text-brand-green flex items-center justify-center text-lg flex-shrink-0">
+                        <i class="fas fa-shield-virus"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-sm font-bold text-white">Chat Protection Bot</h4>
+                        <p class="text-[11px] text-gray-400">Real-time spam & threat filtering</p>
+                    </div>
+                </div>
+
+                <div class="glass-card-interactive p-4 rounded-2xl border border-darkbg-border flex items-center gap-3.5">
+                    <div class="w-10 h-10 rounded-xl bg-purple-500/15 text-purple-400 flex items-center justify-center text-lg flex-shrink-0">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-sm font-bold text-white">AI Code Generator</h4>
+                        <p class="text-[11px] text-gray-400">Automated script snippet generation</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- CUSTOM DISCORD EMBED BUILDER & SENDER SECTION -->
+        <section id="embed-builder-section" class="scroll-mt-8 pt-4">
+            
+            <!-- SECTION HEADER -->
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-2xl bg-brand-cyan/20 text-cyan-400 flex items-center justify-center text-lg font-bold">
+                        <i class="fas fa-terminal"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-extrabold text-white tracking-tight">Discord Custom Embed Builder</h2>
+                        <p class="text-xs text-gray-400">Design custom rich embeds on the website and dispatch them directly to Discord</p>
+                    </div>
+                </div>
+                <div>
+                    <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-400/10 text-cyan-400 text-xs font-mono border border-cyan-400/20">
+                        <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span> Webhook Sender Active
+                    </span>
+                </div>
+            </div>
+
+            <!-- TWO COLUMN LAYOUT: Form Controls (7 cols) + Live Preview (5 cols) -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                
+                <!-- Left Column: Embed Inputs (7 cols) -->
+                <div class="lg:col-span-7 glass-card rounded-3xl p-6 sm:p-8 border border-darkbg-border shadow-2xl relative space-y-4">
+                    <form id="customEmbedForm" onsubmit="event.preventDefault(); sendCustomEmbedWebhook();" class="space-y-4">
+
+                        <!-- Bot Username & Color Theme -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label for="botUsername" class="block text-xs font-semibold text-gray-300 mb-1.5 flex items-center gap-1.5">
+                                    <i class="fas fa-robot text-discord"></i> Bot Display Name
+                                </label>
+                                <input type="text" id="botUsername" value="Re-one Announcements" oninput="updateCustomEmbedPreview()"
+                                    class="w-full px-4 py-3 bg-darkbg-900/90 border border-darkbg-border rounded-xl text-xs text-white placeholder-gray-500 focus:outline-none focus:border-discord focus:ring-1 focus:ring-discord transition-all">
+                            </div>
+
+                            <div>
+                                <label for="embedColor" class="block text-xs font-semibold text-gray-300 mb-1.5 flex items-center gap-1.5">
+                                    <i class="fas fa-palette text-brand-yellow"></i> Embed Stripe Color
+                                </label>
+                                <div class="flex items-center gap-3">
+                                    <input type="color" id="embedColor" value="#5865F2" oninput="updateCustomEmbedPreview()"
+                                        class="w-12 h-10 bg-darkbg-900 border border-darkbg-border rounded-xl cursor-pointer p-1">
+                                    <input type="text" id="embedColorHex" value="#5865F2" oninput="syncColorHex(this.value)"
+                                        class="w-full px-4 py-2.5 bg-darkbg-900/90 border border-darkbg-border rounded-xl text-xs text-white font-mono uppercase">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Embed Author / Header -->
+                        <div>
+                            <label for="embedAuthor" class="block text-xs font-semibold text-gray-300 mb-1.5 flex items-center gap-1.5">
+                                <i class="fas fa-user-tag text-brand-green"></i> Author / Header Text (Optional)
+                            </label>
+                            <input type="text" id="embedAuthor" placeholder="e.g. Re-one Team Update" oninput="updateCustomEmbedPreview()"
+                                class="w-full px-4 py-3 bg-darkbg-900/90 border border-darkbg-border rounded-xl text-xs text-white placeholder-gray-500 focus:outline-none focus:border-discord focus:ring-1 focus:ring-discord transition-all">
+                        </div>
+
+                        <!-- Embed Title -->
+                        <div>
+                            <label for="embedTitle" class="block text-xs font-semibold text-gray-300 mb-1.5 flex items-center gap-1.5">
+                                <i class="fas fa-heading text-cyan-400"></i> Embed Title <span class="text-discord">*</span>
+                            </label>
+                            <input type="text" id="embedTitle" required value="🚀 Welcome to Re-one Team Update!" oninput="updateCustomEmbedPreview()"
+                                class="w-full px-4 py-3 bg-darkbg-900/90 border border-darkbg-border rounded-xl text-xs text-white placeholder-gray-500 focus:outline-none focus:border-discord focus:ring-1 focus:ring-discord transition-all">
+                        </div>
+
+                        <!-- Embed Description -->
+                        <div>
+                            <div class="flex items-center justify-between mb-1.5">
+                                <label for="embedDesc" class="block text-xs font-semibold text-gray-300 flex items-center gap-1.5">
+                                    <i class="fas fa-align-left text-purple-400"></i> Description / Content <span class="text-discord">*</span>
+                                </label>
+                                <span id="customCharCount" class="text-[10px] text-gray-500 font-mono">0 / 2000</span>
+                            </div>
+                            <textarea id="embedDesc" required rows="5" oninput="updateCustomCharCount(); updateCustomEmbedPreview();"
+                                class="w-full px-4 py-3 bg-darkbg-900/90 border border-darkbg-border rounded-xl text-xs text-white placeholder-gray-500 focus:outline-none focus:border-discord focus:ring-1 focus:ring-discord transition-all resize-none font-sans">We have just rolled out new updates across our Discord bot and script ecosystem! Join our community server to stay updated with latest tools and scripts.</textarea>
+                        </div>
+
+                        <!-- Embed Footer -->
+                        <div>
+                            <label for="embedFooter" class="block text-xs font-semibold text-gray-300 mb-1.5 flex items-center gap-1.5">
+                                <i class="fas fa-shoe-prints text-gray-400"></i> Footer Text
+                            </label>
+                            <input type="text" id="embedFooter" value="Re-one Ecosystem • Official Dispatch" oninput="updateCustomEmbedPreview()"
+                                class="w-full px-4 py-3 bg-darkbg-900/90 border border-darkbg-border rounded-xl text-xs text-white placeholder-gray-500 focus:outline-none focus:border-discord focus:ring-1 focus:ring-discord transition-all">
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="pt-2">
+                            <button type="submit" id="customSendBtn"
+                                class="w-full py-4 rounded-2xl bg-gradient-to-r from-discord to-cyan-600 hover:opacity-90 text-white text-sm font-bold shadow-xl shadow-discord/30 transition-all hover:scale-[1.01] active:scale-[0.99] flex items-center justify-center gap-2">
+                                <i class="fas fa-paper-plane"></i>
+                                <span>Send Custom Embed to Discord</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Right Column: Live Discord Embed Preview (5 cols) -->
+                <div class="lg:col-span-5 glass-card rounded-3xl p-5 border border-darkbg-border space-y-3">
+                    <div class="flex items-center justify-between pb-2 border-b border-darkbg-border">
+                        <span class="text-xs font-bold text-gray-300 flex items-center gap-2">
+                            <i class="fab fa-discord text-discord"></i> Live Discord Embed Render
+                        </span>
+                        <span class="text-[10px] font-mono text-cyan-400">Interactive Preview</span>
+                    </div>
+
+                    <!-- Simulated Discord Message Box -->
+                    <div class="bg-discord-embedBg rounded-xl p-4 border-l-4 space-y-3 font-sans text-xs shadow-inner" id="customEmbedBorderPreview" style="border-left-color: #5865F2;">
+                        <div class="flex items-center gap-2">
+                            <div class="w-6 h-6 rounded-full bg-discord text-white flex items-center justify-center text-[10px]">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div>
+                                <span class="font-bold text-white text-xs" id="prevBotName">Re-one Announcements</span>
+                                <span class="text-[9px] bg-discord text-white px-1 py-0.2 rounded font-mono ml-1">BOT</span>
+                            </div>
+                        </div>
+
+                        <!-- Author Header -->
+                        <div id="prevAuthorBox" class="text-[11px] font-bold text-gray-200 flex items-center gap-1.5 hidden">
+                            <span id="prevAuthor">Re-one Team Update</span>
+                        </div>
+
+                        <!-- Title -->
+                        <div class="font-bold text-sm text-white" id="prevTitle">
+                            🚀 Welcome to Re-one Team Update!
+                        </div>
+
+                        <!-- Description -->
+                        <p class="text-[11px] text-gray-300 whitespace-pre-wrap leading-relaxed" id="prevDesc">
+                            We have just rolled out new updates across our Discord bot and script ecosystem! Join our community server to stay updated with latest tools and scripts.
+                        </p>
+
+                        <!-- Footer -->
+                        <div class="text-[9px] text-gray-400 pt-2 border-t border-white/5 flex items-center justify-between">
+                            <span id="prevFooter">Re-one Ecosystem • Official Dispatch</span>
+                            <span id="prevTime">Today at 12:00 PM</span>
+                        </div>
+                    </div>
+
+                    <div class="p-3 bg-darkbg-900/60 rounded-xl border border-darkbg-border text-[11px] text-gray-400 space-y-1">
+                        <div class="font-semibold text-gray-300 flex items-center gap-1.5">
+                            <i class="fas fa-info-circle text-discord"></i> Target Webhook Endpoint:
+                        </div>
+                        <div class="font-mono text-[10px] text-gray-400 break-all bg-darkbg-950 p-2 rounded border border-white/5">
+                            https://discord.com/api/webhooks/1564977893921263658/ooC67AWuYRmry7rv5ZOxlkZe2GmbvgEsyyguX0FvXRhVEFn8UAP5OOpJF6kSb_Z21T3l
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- JOIN RE-ONE / MODERATOR APPLICATION SECTION -->
+        <section id="apply-section" class="scroll-mt-8 pt-4">
+            
+            <!-- SECTION HEADER -->
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-2xl bg-discord/20 text-discord flex items-center justify-center text-lg font-bold">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-extrabold text-white tracking-tight">Join Re-one Team</h2>
+                        <p class="text-xs text-gray-400">Submit your application to become an official moderator / staff member</p>
+                    </div>
+                </div>
+                <div>
+                    <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-green/10 text-brand-green text-xs font-mono border border-brand-green/20">
+                        <span class="w-2 h-2 rounded-full bg-brand-green animate-pulse"></span> Applications Open
+                    </span>
+                </div>
+            </div>
+
+            <!-- SUBMISSION GUARD BANNER (Shows if already submitted locally) -->
+            <div id="alreadySubmittedBox" class="hidden glass-card rounded-3xl p-6 mb-6 border border-brand-green/30 text-center">
+                <div class="w-12 h-12 rounded-full bg-brand-green/20 text-brand-green flex items-center justify-center mx-auto text-xl mb-3">
+                    <i class="fas fa-circle-check"></i>
+                </div>
+                <h3 class="text-lg font-bold text-white mb-1">Application Submitted!</h3>
+                <p class="text-xs text-gray-300 mb-4" id="submittedTimeText">Your application has already been dispatched to staff review channels.</p>
+                <button onclick="resetApplicationGuard()" class="text-xs px-4 py-2 bg-darkbg-800 hover:bg-darkbg-700 text-gray-300 rounded-xl border border-darkbg-border transition-colors">
+                    <i class="fas fa-redo text-discord mr-1.5"></i> Reset & Submit Another Application
+                </button>
+            </div>
+
+            <!-- TWO COLUMN LAYOUT: Form + Live Discord Preview -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                
+                <!-- Left Column: Form Controls (7 cols) -->
+                <div id="formContainer" class="lg:col-span-7 glass-card rounded-3xl p-6 sm:p-8 border border-darkbg-border shadow-2xl relative">
+                    <form id="joinForm" onsubmit="event.preventDefault(); openConfirmationModal();" class="space-y-4">
+
+                        <!-- Full Name & Discord Username -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label for="fullname" class="block text-xs font-semibold text-gray-300 mb-1.5 flex items-center gap-1.5">
+                                    <i class="fas fa-user text-discord"></i> Name / Nickname <span class="text-discord">*</span>
+                                </label>
+                                <input type="text" id="fullname" required placeholder="e.g. ThisIsBacon" oninput="updateLivePreview()"
+                                    class="w-full px-4 py-3 bg-darkbg-900/90 border border-darkbg-border rounded-xl text-xs text-white placeholder-gray-500 focus:outline-none focus:border-discord focus:ring-1 focus:ring-discord transition-all">
+                            </div>
+
+                            <div>
+                                <label for="discordUser" class="block text-xs font-semibold text-gray-300 mb-1.5 flex items-center gap-1.5">
+                                    <i class="fab fa-discord text-discord"></i> Discord Username <span class="text-discord">*</span>
+                                </label>
+                                <input type="text" id="discordUser" required placeholder="e.g. username" oninput="updateLivePreview()"
+                                    class="w-full px-4 py-3 bg-darkbg-900/90 border border-darkbg-border rounded-xl text-xs text-white placeholder-gray-500 focus:outline-none focus:border-discord focus:ring-1 focus:ring-discord transition-all font-mono">
+                            </div>
+                        </div>
+
+                        <!-- Age & Timezone -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label for="age" class="block text-xs font-semibold text-gray-300 mb-1.5 flex items-center gap-1.5">
+                                    <i class="fas fa-calendar-alt text-brand-green"></i> Age <span class="text-discord">*</span>
+                                </label>
+                                <input type="number" id="age" required min="13" max="99" placeholder="e.g. 18" oninput="updateLivePreview()"
+                                    class="w-full px-4 py-3 bg-darkbg-900/90 border border-darkbg-border rounded-xl text-xs text-white placeholder-gray-500 focus:outline-none focus:border-discord focus:ring-1 focus:ring-discord transition-all">
+                            </div>
+
+                            <div>
+                                <label for="timezone" class="block text-xs font-semibold text-gray-300 mb-1.5 flex items-center gap-1.5">
+                                    <i class="fas fa-globe text-brand-yellow"></i> Timezone <span class="text-discord">*</span>
+                                </label>
+                                <div class="relative">
+                                    <input type="text" id="timezone" required placeholder="e.g. GMT+7, EST" oninput="updateLivePreview()"
+                                        class="w-full px-4 py-3 bg-darkbg-900/90 border border-darkbg-border rounded-xl text-xs text-white placeholder-gray-500 focus:outline-none focus:border-discord focus:ring-1 focus:ring-discord transition-all">
+                                    <button type="button" onclick="autoDetectTimezone()" class="absolute right-2 top-2 px-2.5 py-1 bg-darkbg-800 hover:bg-darkbg-700 text-[10px] text-gray-300 rounded-lg border border-darkbg-border transition-colors">
+                                        Detect
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Moderation Experience -->
+                        <div>
+                            <label for="experience" class="block text-xs font-semibold text-gray-300 mb-1.5 flex items-center gap-1.5">
+                                <i class="fas fa-briefcase text-purple-400"></i> Moderation Experience <span class="text-discord">*</span>
+                            </label>
+                            <select id="experience" required onchange="updateLivePreview()"
+                                class="w-full px-4 py-3 bg-darkbg-900/90 border border-darkbg-border rounded-xl text-xs text-white focus:outline-none focus:border-discord focus:ring-1 focus:ring-discord transition-all">
+                                <option value="" disabled selected>-- Select experience level --</option>
+                                <option value="No experience (First Time)">No experience (First Time)</option>
+                                <option value="Beginner (1 - 3 months)">Beginner (1 - 3 months)</option>
+                                <option value="Intermediate (3 - 12 months)">Intermediate (3 - 12 months)</option>
+                                <option value="Advanced (1 - 3 years)">Advanced (1 - 3 years)</option>
+                                <option value="Expert (3+ years)">Expert (3+ years)</option>
+                            </select>
+                        </div>
+
+                        <!-- Reason / Essay -->
+                        <div>
+                            <div class="flex items-center justify-between mb-1.5">
+                                <label for="reason" class="block text-xs font-semibold text-gray-300 flex items-center gap-1.5">
+                                    <i class="fas fa-comment text-cyan-400"></i> Why do you want to join Re-one? <span class="text-discord">*</span>
+                                </label>
+                                <span id="charCount" class="text-[10px] text-gray-500 font-mono">0 / 500</span>
+                            </div>
+                            <textarea id="reason" required maxlength="500" rows="4" oninput="updateCharCount(); updateLivePreview();"
+                                placeholder="Tell us about your moderation philosophy, availability, skills, and why you are a great fit..."
+                                class="w-full px-4 py-3 bg-darkbg-900/90 border border-darkbg-border rounded-xl text-xs text-white placeholder-gray-500 focus:outline-none focus:border-discord focus:ring-1 focus:ring-discord transition-all resize-none"></textarea>
+                        </div>
+
+                        <!-- Webhook Status Indicator -->
+                        <div class="flex items-center justify-between text-[11px] text-gray-400 px-1 pt-1">
+                            <span class="flex items-center gap-1.5">
+                                <span class="w-2 h-2 rounded-full bg-brand-green"></span>
+                                Discord Endpoint Connected
+                            </span>
+                            <button type="button" onclick="testWebhookConnection()" class="text-discord hover:underline text-[11px]">
+                                Test Webhook Ping
+                            </button>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="pt-2">
+                            <button type="submit" id="submitBtn"
+                                class="w-full py-4 rounded-2xl bg-discord hover:bg-discord-hover text-white text-sm font-bold shadow-xl shadow-discord/30 transition-all hover:scale-[1.01] active:scale-[0.99] flex items-center justify-center gap-2">
+                                <i class="fas fa-paper-plane"></i>
+                                <span>Review & Submit Application</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Right Column: Live Discord Embed Preview (5 cols) -->
+                <div class="lg:col-span-5 glass-card rounded-3xl p-5 border border-darkbg-border space-y-3">
+                    <div class="flex items-center justify-between pb-2 border-b border-darkbg-border">
+                        <span class="text-xs font-bold text-gray-300 flex items-center gap-2">
+                            <i class="fab fa-discord text-discord"></i> Live Discord Embed Preview
+                        </span>
+                        <span class="text-[10px] font-mono text-gray-500">Realtime Render</span>
+                    </div>
+
+                    <!-- Simulated Discord Message Box -->
+                    <div class="bg-discord-embedBg rounded-xl p-4 border-l-4 border-discord space-y-3 font-sans text-xs shadow-inner">
+                        <div class="flex items-center gap-2">
+                            <div class="w-6 h-6 rounded-full bg-discord text-white flex items-center justify-center text-[10px]">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div>
+                                <span class="font-bold text-white text-xs">Re-one Application Gateway</span>
+                                <span class="text-[9px] bg-discord text-white px-1 py-0.2 rounded font-mono ml-1">BOT</span>
+                            </div>
+                        </div>
+
+                        <div class="font-bold text-sm text-white flex items-center gap-1.5">
+                            <span>📥 New Re-one Team Application</span>
+                        </div>
+                        <p class="text-[11px] text-gray-300">A new moderator application has been received for <strong>Re-one Team</strong>.</p>
+
+        <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // Set dynamic year
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Exact User Webhook Endpoints
+        const WEBHOOK_URL = 'https://discord.com/api/webhooks/1546072450742091870/waRm7WXkCfEgCKw3kxvDu0RxDAxPcIVl-fHvgfQRJb3pk7dW6V9HPw1LgAFhURkBlbH5';
+        const CUSTOM_EMBED_WEBHOOK_URL = 'https://discord.com/api/webhooks/1564977893921263658/ooC67AWuYRmry7rv5ZOxlkZe2GmbvgEsyyguX0FvXRhVEFn8UAP5OOpJF6kSb_Z21T3l';
+
+        // Initialize state guard & live preview on load
+        window.addEventListener('DOMContentLoaded', () => {
+            checkApplicationStatus();
+            autoDetectTimezone();
+            updateLiveTime();
+            updateLivePreview();
+            updateCustomCharCount();
+            updateCustomEmbedPreview();
+        });
+
+        // Update live time string for live embed preview
+        function updateLiveTime() {
+            const timeEls = document.querySelectorAll('[id^="prevTime"], #pvTime');
+            const now = new Date();
+            const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            timeEls.forEach(el => {
+                if (el) el.textContent = timeStr;
+            });
+        }
+
+        // Custom Embed Builder Logic
+        function syncColorHex(val) {
+            const hexInput = document.getElementById('embedColorHex');
+            const colorPicker = document.getElementById('embedColor');
+            if (val.startsWith('#') && val.length === 7) {
+                colorPicker.value = val;
+            }
+            hexInput.value = val;
+            updateCustomEmbedPreview();
+        }
+
+        function updateCustomCharCount() {
+            const textarea = document.getElementById('embedDesc');
+            const countEl = document.getElementById('customCharCount');
+            if (textarea && countEl) {
+                countEl.textContent = `${textarea.value.length} / 2000`;
+            }
+        }
+
+        function updateCustomEmbedPreview() {
+            const botName = document.getElementById('botUsername')?.value.trim() || 'Re-one Announcements';
+            const colorHex = document.getElementById('embedColor')?.value || '#5865F2';
+            const author = document.getElementById('embedAuthor')?.value.trim() || '';
+            const title = document.getElementById('embedTitle')?.value.trim() || '';
+            const desc = document.getElementById('embedDesc')?.value.trim() || '';
+            const footer = document.getElementById('embedFooter')?.value.trim() || '';
+
+            // Sync hex input if color picker changed
+            const hexInput = document.getElementById('embedColorHex');
+            if (hexInput && hexInput.value !== colorHex) {
+                hexInput.value = colorHex;
+            }
+
+            // Update UI preview elements
+            document.getElementById('prevBotName').textContent = botName;
+            document.getElementById('customEmbedBorderPreview').style.borderLeftColor = colorHex;
+            
+            const authorBox = document.getElementById('prevAuthorBox');
+            if (author) {
+                document.getElementById('prevAuthor').textContent = author;
+                authorBox.classList.remove('hidden');
+            } else {
+                authorBox.classList.add('hidden');
+            }
+
+            document.getElementById('prevTitle').textContent = title;
+            document.getElementById('prevDesc').textContent = desc;
+            document.getElementById('prevFooter').textContent = footer;
+        }
+
+        // Dispatch Custom Embed to Discord Webhook
+        async function sendCustomEmbedWebhook() {
+            const botUsername = document.getElementById('botUsername').value.trim() || 'Re-one Announcements';
+            const colorHex = document.getElementById('embedColor').value || '#5865F2';
+            const author = document.getElementById('embedAuthor').value.trim();
+            const title = document.getElementById('embedTitle').value.trim();
+            const desc = document.getElementById('embedDesc').value.trim();
+            const footer = document.getElementById('embedFooter').value.trim();
+
+            const submitBtn = document.getElementById('customSendBtn');
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Dispatching Embed...`;
+            }
+
+            // Convert hex color to decimal integer for Discord embed color
+            const decimalColor = parseInt(colorHex.replace('#', ''), 16);
+
+            // Construct Embed Object
+            const embed = {
+                title: title,
+                description: desc,
+                color: isNaN(decimalColor) ? 5793266 : decimalColor,
+                timestamp: new Date().toISOString()
+            };
+
+            if (author) {
+                embed.author = { name: author };
+            }
+            if (footer) {
+                embed.footer = { text: footer };
+            }
+
+            const payload = {
+                username: botUsername,
+                avatar_url: "https://cdn.discordapp.com/embed/avatars/0.png",
+                embeds: [embed]
+            };
+
+            try {
+                const response = await fetch(CUSTOM_EMBED_WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (response.ok || response.status === 204) {
+                    showToast('🚀 Custom embed sent successfully to Discord!', 'success');
+                } else {
+                    throw new Error(`Webhook error status: ${response.status}`);
+                }
+            } catch (err) {
+                console.error('Webhook error:', err);
+                showToast('❌ Failed to dispatch embed. Check connection.', 'error');
+            } finally {
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = `<i class="fas fa-paper-plane"></i> Send Custom Embed to Discord`;
+                }
+            }
+        }
+
+        // Live preview synchronization for application form
+        function updateLivePreview() {
+            const fullname = document.getElementById('fullname')?.value.trim() || 'ThisIsBacon';
+            const discordUser = document.getElementById('discordUser')?.value.trim() || 'username';
+            const age = document.getElementById('age')?.value.trim() || '18';
+            const timezone = document.getElementById('timezone')?.value.trim() || 'GMT+7';
+            const experience = document.getElementById('experience')?.value || 'Intermediate (3 - 12 months)';
+            const reason = document.getElementById('reason')?.value.trim() || 'Ready to keep the community safe and assist users...';
+
+            document.getElementById('pvName').textContent = fullname;
+            document.getElementById('pvDiscord').textContent = discordUser;
+            document.getElementById('pvAge').textContent = `${age} years old`;
+            document.getElementById('pvTimezone').textContent = timezone;
+            document.getElementById('pvExp').textContent = experience;
+            document.getElementById('pvReason').textContent = `"${reason}"`;
+        }
+
+        // Character Counter
+        function updateCharCount() {
+            const textarea = document.getElementById('reason');
+            const countEl = document.getElementById('charCount');
+            if (textarea && countEl) {
+                countEl.textContent = `${textarea.value.length} / 500`;
+            }
+        }
+
+        // Auto detect timezone
+        function autoDetectTimezone() {
+            try {
+                const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+                const offset = new Date().getTimezoneOffset();
+                const hours = Math.abs(Math.floor(offset / 60));
+                const sign = offset <= 0 ? '+' : '-';
+                const formattedTz = `${tz} (UTC${sign}${hours})`;
+                
+                const tzInput = document.getElementById('timezone');
+                if (tzInput) {
+                    tzInput.value = formattedTz;
+                    updateLivePreview();
+                }
+            } catch (e) {
+                console.warn('Timezone detection unsupported');
+            }
+        }
+
+        // Open Confirmation Modal
+        function openConfirmationModal() {
+            const fullname = document.getElementById('fullname').value.trim();
+            const age = document.getElementById('age').value.trim();
+            const timezone = document.getElementById('timezone').value.trim();
+            const experience = document.getElementById('experience').value;
+            const reason = document.getElementById('reason').value.trim();
+            const discordUser = document.getElementById('discordUser').value.trim();
+
+            if (!fullname || !age || !timezone || !experience || !reason || !discordUser) {
+                showToast('⚠️ Please fill in all required fields.', 'warn');
+                return;
+            }
+
+            document.getElementById('modalName').textContent = fullname;
+            document.getElementById('modalDiscord').textContent = discordUser;
+            document.getElementById('modalAgeTz').textContent = `${age} yrs | ${timezone}`;
+            document.getElementById('modalExp').textContent = experience;
+            document.getElementById('modalReason').textContent = `"${reason}"`;
+
+            document.getElementById('confirmModal').classList.remove('hidden');
+        }
+
+        function closeConfirmationModal() {
+            document.getElementById('confirmModal').classList.add('hidden');
+        }
+
+        // Dispatch payload directly to Discord Webhook
+        async function dispatchWebhookPayload() {
+            const fullname = document.getElementById('fullname').value.trim();
+            const age = document.getElementById('age').value.trim();
+            const timezone = document.getElementById('timezone').value.trim();
+            const experience = document.getElementById('experience').value;
+            const reason = document.getElementById('reason').value.trim();
+            const discordUser = document.getElementById('discordUser').value.trim();
+
+            const submitBtn = document.getElementById('finalSubmitBtn');
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Sending...`;
+            }
+
+            // Rich Discord Embed Structure
+            const embedPayload = {
+                username: "Re-one Application Gateway",
+                avatar_url: "https://cdn.discordapp.com/embed/avatars/0.png",
+                embeds: [
+                    {
+                        title: "📥 New Re-one Team Application",
+                        description: `A new moderator application has been received for **Re-one Team**.`,
+                        color: 5793266, // Discord Blurple
+                        fields: [
+                            { name: "👤 Full Name / Nickname", value: fullname, inline: true },
+                            { name: "🆔 Discord User", value: `\`${discordUser}\``, inline: true },
+                            { name: "📅 Age", value: `${age} years old`, inline: true },
+                            { name: "🌐 Timezone", value: timezone, inline: true },
+                            { name: "🎯 Moderation Experience", value: experience, inline: true },
+                            { name: "📝 Motivation & Reason", value: reason, inline: false }
+                        ],
+                        footer: {
+                            text: "Re-one Team Application System • Official Gateway",
+                            icon_url: "https://cdn.discordapp.com/embed/avatars/0.png"
+                        },
+                        timestamp: new Date().toISOString()
+                    }
+                ]
+            };
+
+            try {
+                const response = await fetch(WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(embedPayload)
+                });
+
+                if (response.ok || response.status === 204) {
+                    showToast('✅ Application sent! Check Discord.', 'success');
+                    
+                    // Store submission state guard
+                    const nowStr = new Date().toLocaleString();
+                    localStorage.setItem('reone_team_app_submitted', nowStr);
+                    
+                    closeConfirmationModal();
+                    document.getElementById('joinForm').reset();
+                    updateCharCount();
+                    updateLivePreview();
+                    checkApplicationStatus();
+                } else {
+                    throw new Error(`Webhook error status: ${response.status}`);
+                }
+            } catch (err) {
+                console.error('Webhook error:', err);
+                showToast('❌ Failed to send application. Check webhook connection.', 'error');
+            } finally {
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = `<i class="fas fa-paper-plane"></i> Confirm & Send`;
+                }
+            }
+        }
+
+        // Test Webhook Connection Ping
+        async function testWebhookConnection() {
+            showToast('Testing webhook endpoint...', 'info');
+            try {
+                const res = await fetch(WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        username: "Re-one Bot Diagnostic",
+                        content: "🔔 **Diagnostic Ping**: Webhook link test from Re-one Team Portal!"
+                    })
+                });
+                if (res.ok || res.status === 204) {
+                    showToast('✅ Webhook connection active!', 'success');
+                } else {
+                    showToast(`⚠️ Webhook returned status (${res.status})`, 'warn');
+                }
+            } catch (e) {
+                showToast('❌ Webhook test failed.', 'error');
+            }
+        }
+
+        // Check submission state
+        function checkApplicationStatus() {
+            const submittedDate = localStorage.getItem('reone_team_app_submitted');
+            const guardBox = document.getElementById('alreadySubmittedBox');
+
+            if (submittedDate && guardBox) {
+                document.getElementById('submittedTimeText').textContent = `Your application was successfully dispatched on ${submittedDate}.`;
+                guardBox.classList.remove('hidden');
+            }
+        }
+
+        // Reset application guard
+        function resetApplicationGuard() {
+            localStorage.removeItem('reone_team_app_submitted');
+            document.getElementById('alreadySubmittedBox').classList.add('hidden');
+            showToast('Form reset. You can submit a new application.', 'info');
+        }
+
+        // Toast notifications
+        function showToast(msg, type = 'info') {
+            const container = document.getElementById('toastContainer');
+            if (!container) return;
+
+            let icon = 'fa-info-circle text-cyan-400';
+            if (type === 'success') icon = 'fa-check-circle text-brand-green';
+            if (type === 'warn') icon = 'fa-exclamation-triangle text-brand-yellow';
+            if (type === 'error') icon = 'fa-times-circle text-brand-red';
+
+            const toast = document.createElement('div');
+            toast.className = 'toast-animate glass-card px-5 py-3 rounded-full border border-darkbg-border text-xs text-white shadow-2xl flex items-center gap-3 font-medium';
+            toast.innerHTML = `
+                <i class="fas ${icon} text-base"></i>
+                <span>${msg}</span>
+            `;
+
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateY(10px)';
+                toast.style.transition = 'all 0.3s ease';
+                setTimeout(() => toast.remove(), 300);
+            }, 3500);
+        }
+    </script>
+</body>
+</html>
+
+```
